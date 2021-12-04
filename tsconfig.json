@@ -10,6 +10,51 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@auth/*": [
+        "src/containers/auth/*"
+      ],
+      "@user/*": [
+        "src/containers/user/*"
+      ],
+      "@notice/*": [
+        "src/containers/notice/*"
+      ],
+      "@annual/*": [
+        "src/containers/annual/*"
+      ],
+      "@containers/*": [
+        "src/containers/*"
+      ],
+
+      // #region index
+      "@constants": [
+        "src/constants/index"
+      ],
+      "@configs": [
+        "src/configs/index"
+      ],
+      "@strategys": [
+        "src/strategys/index"
+      ],
+      "@guards": [
+        "src/guards/index"
+      ],
+      "@filters": [
+        "src/filters/index"
+      ],
+      // #endregion 
+
+      "@enums/*": [
+        "src/enums/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@src/*": [
+        "src/*"
+      ],
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
