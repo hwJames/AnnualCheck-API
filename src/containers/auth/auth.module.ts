@@ -2,7 +2,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 
-import { LocalStrategy, JwtStrategy, JwtRefreshStrategy } from '@strategys';
+import {
+  LocalStrategy,
+  JwtStrategy,
+  JwtRefreshStrategy,
+  ApiKeyStrategy,
+} from '@strategys';
 
 import { UserModule } from '@user/user.module';
 import { AuthController } from './auth.controller';
@@ -23,6 +28,7 @@ import { AppService } from '@src/app.service';
   providers: [
     AuthService,
     AppService,
+    ApiKeyStrategy,
     LocalStrategy,
     JwtStrategy,
     JwtRefreshStrategy,

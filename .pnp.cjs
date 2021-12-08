@@ -64,6 +64,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["joi", "npm:17.5.0"],
             ["mysql2", "npm:2.3.3"],
             ["passport", "npm:0.5.0"],
+            ["passport-headerapikey", "npm:1.2.2"],
             ["passport-jwt", "npm:4.0.0"],
             ["passport-local", "npm:1.0.0"],
             ["prettier", "npm:2.5.1"],
@@ -2852,6 +2853,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["joi", "npm:17.5.0"],
             ["mysql2", "npm:2.3.3"],
             ["passport", "npm:0.5.0"],
+            ["passport-headerapikey", "npm:1.2.2"],
             ["passport-jwt", "npm:4.0.0"],
             ["passport-local", "npm:1.0.0"],
             ["prettier", "npm:2.5.1"],
@@ -7800,6 +7802,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["passport", "npm:0.5.0"],
             ["passport-strategy", "npm:1.0.0"],
             ["pause", "npm:0.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["passport-headerapikey", [
+        ["npm:1.2.2", {
+          "packageLocation": "./.yarn/cache/passport-headerapikey-npm-1.2.2-c3b278f322-509b0d7222.zip/node_modules/passport-headerapikey/",
+          "packageDependencies": [
+            ["passport-headerapikey", "npm:1.2.2"],
+            ["lodash", "npm:4.17.21"],
+            ["passport-strategy", "npm:1.0.0"]
           ],
           "linkType": "HARD",
         }]

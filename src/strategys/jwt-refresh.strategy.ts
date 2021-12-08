@@ -10,10 +10,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
   Strategy,
   'jwt-refresh',
 ) {
-  constructor(
-    private configService: ConfigService,
-    private userService: UserService,
-  ) {
+  constructor(configService: ConfigService, private userService: UserService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,

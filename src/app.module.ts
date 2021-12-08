@@ -8,7 +8,7 @@ import { configuration, database, jwt, jwtRefresh } from '@configs';
 
 // GUARD
 import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard, RolesGuard } from '@guards';
+import { ApiKeyAuthGuard, JwtAuthGuard, RolesGuard } from '@guards';
 
 // TypeORM
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -65,6 +65,10 @@ import { AuthModule } from '@auth/auth.module';
   providers: [
     AppService,
     Logger,
+    {
+      provide: APP_GUARD,
+      useClass: ApiKeyAuthGuard,
+    },
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
