@@ -1,6 +1,4 @@
-import { ApiKeyStrategy } from './api-key.strategy';
-import { LocalStrategy } from './local.strategy';
-import { JwtStrategy } from './jwt.strategy';
-import { JwtRefreshStrategy } from './jwt-refresh.strategy';
-
-export { ApiKeyStrategy, LocalStrategy, JwtStrategy, JwtRefreshStrategy };
+export * from './api-key.strategy';
+export * from './local.strategy';
+export * from './jwt.strategy';
+export * from './jwt-refresh.strategy';

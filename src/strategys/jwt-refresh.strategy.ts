@@ -4,6 +4,7 @@ import { Injectable, Request } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { UserService } from '@user/user.service';
+import { TokenDto } from '@user/dto/token.dto';
 
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(
@@ -19,7 +20,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
     });
   }
 
-  async validate(@Request() req, payload: any) {
+  async validate(@Request() req, payload: TokenDto) {
     const refreshToken = req.get('authorization').replace('Bearer ', '');
     return this.userService.matchRefreshToken(payload.us_id, refreshToken);
   }

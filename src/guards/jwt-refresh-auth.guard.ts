@@ -8,13 +8,13 @@ export class JwtRefresAuthhGuard extends AuthGuard('jwt-refresh') {
     super();
   }
 
-  handleRequest(err, user, info: Error) {
+  handleRequest(err, user) {
     if (err || !user) {
       throw (
         err ||
         new UnauthorizedException({
           statusCode: HttpStatus.UNAUTHORIZED,
-          errorCode: 'RefreshTokenExpired',
+          error: 'RefreshTokenExpired',
           message: '만료된 토근입니다.',
         })
       );

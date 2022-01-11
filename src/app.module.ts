@@ -35,6 +35,8 @@ import { AuthModule } from '@auth/auth.module';
         APP_KEY_HEADER: Joi.string().default('KEY'),
         APP_KEY: Joi.string().default('1234'),
 
+        DOCS_PWD: Joi.string().default('1234'),
+
         DB_HOST: Joi.string().default('localhost'),
         DB_PORT: Joi.number().default(3306),
         DB_USER: Joi.string().default('root'),

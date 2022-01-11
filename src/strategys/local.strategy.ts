@@ -9,17 +9,17 @@ import { User } from '@user/user.entity';
 export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
   constructor(private authService: AuthService) {
     super({
-      usernameField: 'us_id',
-      passwordField: 'us_pwd',
+      usernameField: 'id',
+      passwordField: 'pwd',
     });
   }
 
-  async validate(us_id: string, us_pwd: string): Promise<User> {
-    const user = await this.authService.validateUser(us_id, us_pwd);
+  async validate(id: string, pwd: string): Promise<User> {
+    const user = await this.authService.validateUser(id, pwd);
     if (!user) {
       throw new UnauthorizedException({
         statusCode: HttpStatus.UNAUTHORIZED,
-        errorCode: 'SignUnauthorized',
+        error: 'SignUnauthorized',
         message: 'Invalid username or password',
       });
     }

@@ -7,7 +7,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 
-import { IS_PUBLIC_KEY } from '@constants';
+import { IS_OPEN_KEY, IS_PUBLIC_KEY } from '@constants';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -20,7 +20,11 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       context.getHandler(),
       context.getClass(),
     ]);
-    if (isPublic) {
+    const isOpen = this.reflector.getAllAndOverride<boolean>(IS_OPEN_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+    if (isPublic || isOpen) {
       return true;
     }
     return super.canActivate(context);
@@ -32,7 +36,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         err ||
         new UnauthorizedException({
           statusCode: HttpStatus.UNAUTHORIZED,
-          errorCode: 'TokenExpiredError',
+          error: 'AccessTokenExpired',
           message: '만료된 토근입니다.',
         })
       );

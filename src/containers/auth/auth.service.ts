@@ -6,6 +6,7 @@ import { hash, compare } from 'bcrypt';
 import { CreateUserDto } from '@user/dto/create-user.dto';
 import { User } from '@user/user.entity';
 import { UserService } from '@user/user.service';
+import { TokenDto } from '@user/dto/token.dto';
 
 @Injectable()
 export class AuthService {
@@ -18,28 +19,30 @@ export class AuthService {
   async validateUser(id: string, pwd: string): Promise<any> {
     const user = await this.userService.findOneById(id);
     if (user) {
-      const isMatch = await compare(pwd, user.pwd);
+      const isMatch = await compare(pwd, user.us_pwd);
       if (isMatch) {
-        const { pwd, ...result } = user;
+        const { us_pwd, ...result } = user;
         return result;
       }
     }
     return null;
   }
 
-  async getAccessToken(user: any) {
+  async getAccessToken(user: TokenDto) {
     const payload = {
-      no: user.no,
-      id: user.id,
+      no: user.us_no,
+      id: user.us_id,
+      nick: user.us_nick,
     };
 
     return this.jwtService.sign(payload);
   }
 
-  async getRefreshToken(user: any) {
+  async getRefreshToken(user: TokenDto) {
     const payload = {
-      no: user.no,
-      id: user.id,
+      no: user.us_no,
+      id: user.us_id,
+      nick: user.us_nick,
     };
 
     return this.jwtService.sign(payload, {
@@ -48,10 +51,11 @@ export class AuthService {
     });
   }
 
-  async signIn(user: any) {
+  async signIn(user: TokenDto) {
     const payload = {
-      no: user.no,
-      id: user.id,
+      no: user.us_no,
+      id: user.us_id,
+      nick: user.us_nick,
     };
 
     return this.jwtService.sign(payload);
@@ -63,9 +67,9 @@ export class AuthService {
     const user = await this.userService.findOneById(id);
     if (!user) {
       const user = new User();
-      user.id = id;
-      user.pwd = await hash(pwd, 10);
-      user.nick = nick;
+      user.us_id = id;
+      user.us_pwd = await hash(pwd, 10);
+      user.us_nick = nick;
 
       await this.userService.saveUser(user);
       return true;

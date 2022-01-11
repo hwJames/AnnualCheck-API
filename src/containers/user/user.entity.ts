@@ -1,42 +1,54 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { Role } from '@enums/user.enum';
+import { Regist, Role } from '@enums/user.enum';
 
 @Entity('tb_user')
 export class User {
   @PrimaryGeneratedColumn({
+    unsigned: true,
     comment: '유저 번호',
   })
-  no: number;
+  us_no: number;
 
   @Column({
     unique: true,
     length: 50,
     comment: '유저 아이디',
   })
-  id: string;
+  us_id: string;
 
   @Column({
+    nullable: true,
     comment: '유저 비밀번호',
   })
-  pwd: string;
+  us_pwd: string;
 
   @Column({
     length: 20,
     comment: '유저 닉네임',
   })
-  nick: string;
+  us_nick: string;
 
   @Column({
-    nullable: true,
     type: 'set',
     enum: Role,
+    default: Role.User,
     comment: '유저 타입',
   })
-  type: Role[];
+  us_type: Role[];
 
   @Column({
+    type: 'enum',
+    enum: Regist,
+    default: Regist.Email,
+    comment: '유저 가입 타입',
+  })
+  regist_type: Regist;
+
+  @Index()
+  @Column({
+    type: 'text',
     nullable: true,
     comment: '유저 리프레쉬 토큰',
   })

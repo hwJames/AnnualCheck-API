@@ -43,6 +43,12 @@
       "@filters": [
         "src/filters/index"
       ],
+      "@pipes": [
+        "src/pipes/index"
+      ],
+      "@models": [
+        "src/models/index"
+      ],
       // #endregion 
 
       "@enums/*": [

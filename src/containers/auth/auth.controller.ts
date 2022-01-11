@@ -3,18 +3,30 @@ import {
   Post,
   UseGuards,
   Request,
-  Body,
   HttpStatus,
+  Delete,
+  Get,
 } from '@nestjs/common';
+
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiSecurity,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { ArrayErrorResponse, ErrorResponse, SignInResponse } from '@models';
 
 import { Public } from '@constants';
 import { JwtRefresAuthhGuard, LocalAuthGuard } from '@guards';
 
-import { CreateUserDto } from '@user/dto/create-user.dto';
 import { UserService } from '@user/user.service';
 import { AuthService } from './auth.service';
+import { TokenDto } from '@user/dto/token.dto';
 
-@Controller('api/v1/auth')
+@Controller('v1/auth')
+@ApiTags('보안 API')
 export class AuthController {
   constructor(
     private authService: AuthService,
@@ -24,37 +36,85 @@ export class AuthController {
     this.userService = userService;
   }
 
+  @Post('/sign')
   @Public()
   @UseGuards(LocalAuthGuard)
-  @Post('signin')
+  // #region Swagger
+  @ApiSecurity('key')
+  @ApiOperation({ summary: '로그인 API' })
+  @ApiCreatedResponse({ description: '로그인 성공', type: SignInResponse })
+  @ApiUnauthorizedResponse({
+    description: '비정상 토큰 OR Request 데이터 오류',
+    type: ErrorResponse,
+  })
+  @ApiBadRequestResponse({
+    description: 'Request 데이터 오류',
+    type: ArrayErrorResponse,
+  })
+  // #endregion
   async signIn(@Request() req) {
-    const user = req.user;
+    const user: TokenDto = req.user;
 
-    const accessToken = await this.authService.getAccessToken(user);
-    const refreshToken = await this.authService.getRefreshToken(user);
+    // 토큰 재발급
+    const newAccessToken = await this.authService.getAccessToken(user);
+    const newRefreshToken = await this.authService.getRefreshToken(user);
 
-    await this.userService.updateRefreshToken(user.us_id, refreshToken);
+    // 토큰 값 업데이트
+    await this.userService.updateRefreshToken(user.us_id, newRefreshToken);
 
     return {
-      statusCode: HttpStatus.OK,
+      statusCode: HttpStatus.CREATED,
       message: '로그인 성공',
-      access_token: accessToken,
-      refresh_token: refreshToken,
+      data: {
+        access_token: newAccessToken,
+        refresh_token: newRefreshToken,
+      },
     };
   }
 
-  @Post('check')
-  async check() {
+  @Post('/sign/social')
+  @Public()
+  @UseGuards(LocalAuthGuard)
+  // #region Swagger
+  @ApiSecurity('key')
+  @ApiOperation({ summary: '소셜 로그인 API' })
+  @ApiCreatedResponse({ description: '로그인 성공', type: SignInResponse })
+  @ApiUnauthorizedResponse({
+    description: '비정상 토큰 OR Request 데이터 오류',
+    type: ErrorResponse,
+  })
+  @ApiBadRequestResponse({
+    description: 'Request 데이터 오류',
+    type: ArrayErrorResponse,
+  })
+  // #endregion
+  async SocialSignIn(@Request() req) {
+    const user: TokenDto = req.user;
+
+    // 토큰 재발급
+    const newAccessToken = await this.authService.getAccessToken(user);
+    const newRefreshToken = await this.authService.getRefreshToken(user);
+
+    // 토큰 값 업데이트
+    await this.userService.updateRefreshToken(user.us_id, newRefreshToken);
+
     return {
-      statusCode: HttpStatus.OK,
-      message: '로그인 상태입니다.',
+      statusCode: HttpStatus.CREATED,
+      message: '로그인 성공',
+      data: {
+        access_token: newAccessToken,
+        refresh_token: newRefreshToken,
+      },
     };
   }
 
-  @Post('signout')
+  @Delete('/sign')
+  @ApiSecurity('key')
+  @ApiOperation({ summary: '로그아웃 API' })
   async signOut(@Request() req) {
-    const user = req.user;
+    const user: TokenDto = req.user;
 
+    // 토큰 삭제
     await this.userService.removeRefreshToken(user.us_id);
 
     return {
@@ -63,34 +123,37 @@ export class AuthController {
     };
   }
 
-  @Public()
-  @UseGuards(JwtRefresAuthhGuard)
-  @Post('refresh')
-  async refresh(@Request() req) {
-    const user = req.user;
-    const accessToken = await this.authService.getAccessToken(user);
+  @Get('/sign')
+  @ApiSecurity('key')
+  @ApiOperation({ summary: '로그인 확인 API' })
+  async check(@Request() req) {
+    const user: TokenDto = req.user;
+
+    console.log(user);
 
     return {
       statusCode: HttpStatus.OK,
-      message: '토큰 재성성 성공',
-      access_token: accessToken,
+      message: '로그인 상태입니다.',
     };
   }
 
+  @Post('/sign/new')
   @Public()
-  @Post('signup')
-  async signUp(@Body() createUserDto: CreateUserDto) {
-    const signup = await this.authService.signUp(createUserDto);
-    if (signup) {
-      return {
-        statusCode: HttpStatus.OK,
-        message: '회원가입 성공',
-      };
-    } else {
-      return {
-        statusCode: HttpStatus.CONFLICT,
-        message: '회원가입 실패',
-      };
-    }
+  @UseGuards(JwtRefresAuthhGuard)
+  @ApiSecurity('key')
+  @ApiOperation({ summary: '토큰 재발급 API' })
+  async refresh(@Request() req) {
+    const user: TokenDto = req.user;
+
+    // 토큰 재발급
+    const newAccessToken = await this.authService.getAccessToken(user);
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: '토큰 재발급 성공',
+      data: {
+        access_token: newAccessToken,
+      },
+    };
   }
 }
