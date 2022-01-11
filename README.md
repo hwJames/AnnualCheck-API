@@ -1,9 +1,9 @@
-# Starter NestJS With Yarn Berry
+# AnnualCheck-API
 
 ![NestJS](https://img.shields.io/badge/NestJS-Yarn_Berry-E0234E?style=for-the-badge&logo=NestJS&logoColor=white)
 ---
 
-![Repo Size](https://img.shields.io/github/repo-size/hwJames/Starter-NestJS-Berry)
+![Repo Size](https://img.shields.io/github/repo-size/hwJames/AnnualCheck-API)
 
 ## Settings
 
@@ -21,7 +21,7 @@ yarn
 ### Running Dev Server
 
 ```bash
-yarn start:dev
+yarn dev
 ```
 
 ### Lint
