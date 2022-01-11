@@ -1,0 +1,106 @@
+name: ci
+
+on:
+  push:
+    branches: [ main, develop ]
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:    
+      - 
+        name: Set branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: branch_name
+        
+      - 
+        name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Install and Build
+        run: |
+          yarn install 
+          yarn build 
+
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      -
+        name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          platforms: linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/annualcheck-api:${{ steps.branch_name.outputs.branch }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+          
+      -
+        # Temp fix
+        # https://github.com/docker/build-push-action/issues/252
+        # https://github.com/moby/buildkit/issues/1896
+        name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+
+  depoly:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: executing remote ssh commands using key (prod)
+        if: github.ref == 'refs/heads/main'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: kubectl patch deployment prod-annualcheck-api -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"build\":\"${{ github.sha }}\"}}}}}}"
+          
+      - 
+        name: executing remote ssh commands using key (dev)
+        if: github.ref == 'refs/heads/develop'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: kubectl patch deployment dev-annualcheck-api -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"build\":\"${{ github.sha }}\"}}}}}}"

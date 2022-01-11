@@ -46,6 +46,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@nestjs/swagger", "virtual:a7a4c88f17911811ce05d8a5d6672696d5669cec7338594174c0d8ec68d10feac3c4dcb607760229da905465f040f7ad15782028c5dc22bf196fb4644adcdd76#npm:5.1.5"],
             ["@nestjs/testing", "virtual:a7a4c88f17911811ce05d8a5d6672696d5669cec7338594174c0d8ec68d10feac3c4dcb607760229da905465f040f7ad15782028c5dc22bf196fb4644adcdd76#npm:8.2.3"],
             ["@nestjs/typeorm", "virtual:a7a4c88f17911811ce05d8a5d6672696d5669cec7338594174c0d8ec68d10feac3c4dcb607760229da905465f040f7ad15782028c5dc22bf196fb4644adcdd76#npm:8.0.2"],
+            ["@types/bcryptjs", "npm:2.4.2"],
             ["@types/express", "npm:4.17.13"],
             ["@types/jest", "npm:27.0.3"],
             ["@types/node", "npm:16.11.11"],
@@ -55,7 +56,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/uuid", "npm:8.3.3"],
             ["@typescript-eslint/eslint-plugin", "virtual:a7a4c88f17911811ce05d8a5d6672696d5669cec7338594174c0d8ec68d10feac3c4dcb607760229da905465f040f7ad15782028c5dc22bf196fb4644adcdd76#npm:5.5.0"],
             ["@typescript-eslint/parser", "virtual:a7a4c88f17911811ce05d8a5d6672696d5669cec7338594174c0d8ec68d10feac3c4dcb607760229da905465f040f7ad15782028c5dc22bf196fb4644adcdd76#npm:5.5.0"],
-            ["bcrypt", "npm:5.0.1"],
+            ["bcryptjs", "npm:2.4.3"],
             ["class-transformer", "npm:0.5.1"],
             ["class-validator", "npm:0.13.2"],
             ["eslint", "npm:8.4.0"],
@@ -1328,24 +1329,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["@mapbox/node-pre-gyp", [
-        ["npm:1.0.7", {
-          "packageLocation": "./.yarn/cache/@mapbox-node-pre-gyp-npm-1.0.7-f78d7e6b9c-bb6ac315e7.zip/node_modules/@mapbox/node-pre-gyp/",
-          "packageDependencies": [
-            ["@mapbox/node-pre-gyp", "npm:1.0.7"],
-            ["detect-libc", "npm:1.0.3"],
-            ["https-proxy-agent", "npm:5.0.0"],
-            ["make-dir", "npm:3.1.0"],
-            ["node-fetch", "npm:2.6.6"],
-            ["nopt", "npm:5.0.0"],
-            ["npmlog", "npm:6.0.0"],
-            ["rimraf", "npm:3.0.2"],
-            ["semver", "npm:7.3.5"],
-            ["tar", "npm:6.1.11"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["@nestjs/cli", [
         ["npm:8.1.5", {
           "packageLocation": "./.yarn/cache/@nestjs-cli-npm-8.1.5-4313a7eab5-7818d8bfaf.zip/node_modules/@nestjs/cli/",
@@ -1988,6 +1971,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@types/babel__traverse", "npm:7.14.2"],
             ["@babel/types", "npm:7.16.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/bcryptjs", [
+        ["npm:2.4.2", {
+          "packageLocation": "./.yarn/cache/@types-bcryptjs-npm-2.4.2-3a0c115732-220dade7b0.zip/node_modules/@types/bcryptjs/",
+          "packageDependencies": [
+            ["@types/bcryptjs", "npm:2.4.2"]
           ],
           "linkType": "HARD",
         }]
@@ -2930,6 +2922,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@nestjs/swagger", "virtual:a7a4c88f17911811ce05d8a5d6672696d5669cec7338594174c0d8ec68d10feac3c4dcb607760229da905465f040f7ad15782028c5dc22bf196fb4644adcdd76#npm:5.1.5"],
             ["@nestjs/testing", "virtual:a7a4c88f17911811ce05d8a5d6672696d5669cec7338594174c0d8ec68d10feac3c4dcb607760229da905465f040f7ad15782028c5dc22bf196fb4644adcdd76#npm:8.2.3"],
             ["@nestjs/typeorm", "virtual:a7a4c88f17911811ce05d8a5d6672696d5669cec7338594174c0d8ec68d10feac3c4dcb607760229da905465f040f7ad15782028c5dc22bf196fb4644adcdd76#npm:8.0.2"],
+            ["@types/bcryptjs", "npm:2.4.2"],
             ["@types/express", "npm:4.17.13"],
             ["@types/jest", "npm:27.0.3"],
             ["@types/node", "npm:16.11.11"],
@@ -2939,7 +2932,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/uuid", "npm:8.3.3"],
             ["@typescript-eslint/eslint-plugin", "virtual:a7a4c88f17911811ce05d8a5d6672696d5669cec7338594174c0d8ec68d10feac3c4dcb607760229da905465f040f7ad15782028c5dc22bf196fb4644adcdd76#npm:5.5.0"],
             ["@typescript-eslint/parser", "virtual:a7a4c88f17911811ce05d8a5d6672696d5669cec7338594174c0d8ec68d10feac3c4dcb607760229da905465f040f7ad15782028c5dc22bf196fb4644adcdd76#npm:5.5.0"],
-            ["bcrypt", "npm:5.0.1"],
+            ["bcryptjs", "npm:2.4.3"],
             ["class-transformer", "npm:0.5.1"],
             ["class-validator", "npm:0.13.2"],
             ["eslint", "npm:8.4.0"],
@@ -3336,13 +3329,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["bcrypt", [
-        ["npm:5.0.1", {
-          "packageLocation": "./.yarn/unplugged/bcrypt-npm-5.0.1-6815be1cfe/node_modules/bcrypt/",
+      ["bcryptjs", [
+        ["npm:2.4.3", {
+          "packageLocation": "./.yarn/cache/bcryptjs-npm-2.4.3-32de4957eb-0e80ed852a.zip/node_modules/bcryptjs/",
           "packageDependencies": [
-            ["bcrypt", "npm:5.0.1"],
-            ["@mapbox/node-pre-gyp", "npm:1.0.7"],
-            ["node-addon-api", "npm:3.2.1"]
+            ["bcryptjs", "npm:2.4.3"]
           ],
           "linkType": "HARD",
         }]
@@ -4323,15 +4314,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/destroy-npm-1.0.4-a2203e01cb-da9ab4961d.zip/node_modules/destroy/",
           "packageDependencies": [
             ["destroy", "npm:1.0.4"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["detect-libc", [
-        ["npm:1.0.3", {
-          "packageLocation": "./.yarn/cache/detect-libc-npm-1.0.3-c30ac344d4-daaaed925f.zip/node_modules/detect-libc/",
-          "packageDependencies": [
-            ["detect-libc", "npm:1.0.3"]
           ],
           "linkType": "HARD",
         }]
@@ -7959,16 +7941,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/next-tick-npm-1.1.0-e0eb60d6a4-83b5cf3602.zip/node_modules/next-tick/",
           "packageDependencies": [
             ["next-tick", "npm:1.1.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["node-addon-api", [
-        ["npm:3.2.1", {
-          "packageLocation": "./.yarn/unplugged/node-addon-api-npm-3.2.1-a29528f81d/node_modules/node-addon-api/",
-          "packageDependencies": [
-            ["node-addon-api", "npm:3.2.1"],
-            ["node-gyp", "npm:8.4.1"]
           ],
           "linkType": "HARD",
         }]
