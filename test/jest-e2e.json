@@ -1,9 +1,28 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
-  "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "rootDir": ".",
+  "moduleNameMapper": {
+    "^@auth/(.*)$": "<rootDir>/../src/containers/auth/$1",
+    "^@user/(.*)$": "<rootDir>/../src/containers/user/$1",
+    "^@notice/(.*)$": "<rootDir>/../src/containers/notice/$1",
+    "^@annual/(.*)$": "<rootDir>/../src/containers/annual/$1",
+    "^@containers/(.*)$": "<rootDir>/../src/containers/$1",
+
+    "^@constants": "<rootDir>/../src/constants/index",
+    "^@configs": "<rootDir>/../src/configs/index",
+    "^@strategys": "<rootDir>/../src/strategys/index",
+    "^@guards": "<rootDir>/../src/guards/index",
+    "^@filters": "<rootDir>/../src/filters/index",
+    "^@pipes": "<rootDir>/../src/pipes/index",
+    "^@models": "<rootDir>/../src/models/index",
+
+    "^@enums/(.*)$": "<rootDir>/../src/enums/$1",
+    "^@utils/(.*)$": "<rootDir>/../src/utils/$1",
+    "^@src/(.*)$": "<rootDir>/../src/$1"
   }
 }

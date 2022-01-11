@@ -24,9 +24,19 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Install and Build
+      - name: Install and Test (e2e)
         run: |
           yarn install 
+          yarn test:e2e
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PWD: ${{ secrets.DB_PWD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+
+      - name: Build
+        run: |
           yarn build 
 
       -

@@ -24,7 +24,7 @@ async function bootstrap() {
     basicAuth({
       challenge: true,
       users: {
-        anuualcheck: docsPwd,
+        annualcheck: docsPwd,
       },
     }),
   );

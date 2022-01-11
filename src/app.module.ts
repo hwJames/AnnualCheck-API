@@ -24,13 +24,14 @@ import { AuthModule } from '@auth/auth.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
       load: [configuration, database, jwt, jwtRefresh],
       validationSchema: Joi.object({
         NODE_ENV: Joi.string().valid('dev', 'prod', 'test').default('prod'),
         PORT: Joi.number().default(3000),
 
-        APP_NAME: Joi.string().default('Nest'),
-        APP_URL: Joi.string().default('http://localhsot'),
+        APP_NAME: Joi.string().default('AnnualCheck-API'),
+        APP_URL: Joi.string().default('http://localhost:3000'),
 
         APP_KEY_HEADER: Joi.string().default('KEY'),
         APP_KEY: Joi.string().default('1234'),
