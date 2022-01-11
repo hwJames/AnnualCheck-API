@@ -56,12 +56,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1 
+
+      - name: set lower case owner name
+        run: |
+          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository_owner }}'
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
 
       -
         name: Build and push
@@ -71,7 +78,7 @@ jobs:
           context: .
           platforms: linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/annualcheck-api:${{ steps.branch_name.outputs.branch }}
+          tags: ghcr.io/${{ env.OWNER_LC }}/annualcheck-api:${{ steps.branch_name.outputs.branch }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
           
