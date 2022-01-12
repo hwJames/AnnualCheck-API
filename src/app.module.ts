@@ -33,7 +33,7 @@ import { AuthModule } from '@auth/auth.module';
         APP_NAME: Joi.string().default('AnnualCheck-API'),
         APP_URL: Joi.string().default('http://localhost:3000'),
 
-        APP_KEY_HEADER: Joi.string().default('KEY'),
+        APP_KEY_HEADER: Joi.string().default('key'),
         APP_KEY: Joi.string().default('1234'),
 
         DOCS_PWD: Joi.string().default('1234'),
