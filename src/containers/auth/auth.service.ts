@@ -30,9 +30,9 @@ export class AuthService {
 
   async getAccessToken(user: TokenDto) {
     const payload = {
-      no: user.us_no,
-      id: user.us_id,
-      nick: user.us_nick,
+      us_no: user.us_no,
+      us_id: user.us_id,
+      us_nick: user.us_nick,
     };
 
     return this.jwtService.sign(payload);
@@ -40,9 +40,9 @@ export class AuthService {
 
   async getRefreshToken(user: TokenDto) {
     const payload = {
-      no: user.us_no,
-      id: user.us_id,
-      nick: user.us_nick,
+      us_no: user.us_no,
+      us_id: user.us_id,
+      us_nick: user.us_nick,
     };
 
     return this.jwtService.sign(payload, {
@@ -53,9 +53,9 @@ export class AuthService {
 
   async signIn(user: TokenDto) {
     const payload = {
-      no: user.us_no,
-      id: user.us_id,
-      nick: user.us_nick,
+      us_no: user.us_no,
+      us_id: user.us_id,
+      us_nick: user.us_nick,
     };
 
     return this.jwtService.sign(payload);
