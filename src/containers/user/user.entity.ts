@@ -1,7 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  Index,
+  OneToOne,
+  OneToMany,
+} from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { Regist, Role } from '@enums/user.enum';
+
+import { Annual, UserAnnual } from '@annual/annual.entity';
+import { Qna } from '@containers/qna/qna.entity';
 
 @Entity('tb_user')
 export class User {
@@ -68,4 +78,13 @@ export class User {
     comment: '유저 업데이트 날짜',
   })
   update_date: Date;
+
+  @OneToMany(() => Annual, (annual) => annual.us_no)
+  annuals: Annual[];
+
+  @OneToOne(() => UserAnnual, (annual) => annual.us_no)
+  annual: UserAnnual;
+
+  @OneToMany(() => Qna, (annual) => annual.us_no)
+  qnas: Qna[];
 }

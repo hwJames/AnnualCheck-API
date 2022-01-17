@@ -19,6 +19,8 @@ import * as Joi from 'joi';
 // Module
 import { UserModule } from '@user/user.module';
 import { AuthModule } from '@auth/auth.module';
+import { AnnualModule } from './containers/annual/annual.module';
+import { QnaModule } from './containers/qna/qna.module';
 
 @Module({
   imports: [
@@ -63,6 +65,8 @@ import { AuthModule } from '@auth/auth.module';
     }),
     UserModule,
     AuthModule,
+    AnnualModule,
+    QnaModule,
   ],
   controllers: [AppController],
   providers: [
