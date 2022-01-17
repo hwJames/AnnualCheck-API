@@ -28,7 +28,7 @@ describe('App', () => {
   });
 
   afterAll(async () => {
-    userRepository.clear();
+    userRepository.delete({ us_id: testId });
     app.close();
   });
 
